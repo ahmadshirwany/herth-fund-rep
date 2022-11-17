@@ -226,4 +226,4 @@ if __name__ == "__main__":
         connect.commit()
         connect.close()
         print("Threaded time:", time.time() - threaded_start)
-        print("**************************chunk no " + str(index) + " complete*****************************")
+        print("**************************chunk no " + str(index) + " complete******************************")
