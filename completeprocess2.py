@@ -158,7 +158,7 @@ def closest_ad(Z):
     lock.release()
     return True
 
-def main():
+if __name__ == "__main__":
     connect = sqlite3.connect("scrapedLinks.db")
     cursor2 = connect.cursor()
     cursor2.execute("SELECT name FROM sqlite_master WHERE type='table';")

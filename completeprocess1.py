@@ -11,12 +11,15 @@ from threading import Lock
 data_list = []
 lock = Lock()
 
+
 def chunks(lst, n):
     """Yield successive n-sized chunks from lst."""
     chunks = []
     for i in range(0, len(lst), n):
         chunks.append(lst[i:i + n])
     return chunks
+
+
 def post_api(Z):
     # print('start of post api')
     # print(Z)
@@ -111,7 +114,9 @@ def post_api(Z):
             print(b)
             continue
     return True
-def main():
+
+
+if __name__ == "__main__":
     zipcodes_df = pd.read_excel('zip_code_database.xls')
     df = zipcodes_df.query("type != 'PO BOX'")
     zipcodes1 = zipcodes_df.query("type != 'PO BOX'")['zip'].tolist()
@@ -140,7 +145,8 @@ def main():
             results = [future.result() for future in futures]
         for data in data_list:
             try:
-                cursor2.execute("insert into Zipcodesdata values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)", data)
+                cursor2.execute(
+                    "insert into Zipcodesdata values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)", data)
             except Exception as e:
                 print(e)
                 if e.args[0] == 'UNIQUE constraint failed: Zipcodesdata.listingid':
@@ -148,4 +154,5 @@ def main():
         connect.commit()
         print("Threaded time:", time.time() - threaded_start)
         print(
-            '*********************************' + str(index + 1) + ' chunk completed*************************************')
+            '*********************************' + str(
+                index + 1) + ' chunk completed*************************************')
